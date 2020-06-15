@@ -1,0 +1,22 @@
+<div>
+    <form action="" class="sign_up_form form" [formGroup]="signUpForm">
+        <div class="heading">SIGN UP</div>
+        <div class="wrap_input">
+            <img src="../../../assets/img/user.png">
+            <input type="text" placeholder="Name" id="" formControlName="name">
+        </div>
+        <div class="wrap_input">
+            <img src="../../../assets/img/email.png">
+            <input type="email" placeholder="Email" id="" formControlName="email">
+        </div>
+        <div class="wrap_input">
+            <img src="../../../assets/img/unlock.png">
+            <input type="password" placeholder="Password" id="" formControlName="password">
+        </div>
+        <div class="wrap_input">
+            <img src="../../../assets/img/unlock.png">
+            <input type="password" placeholder="Retype password" id="" formControlName="retype_password">
+        </div>
+        <button class="form_btn" (click)="onSubmitForm()">Отправить</button>
+    </form>
+</div>

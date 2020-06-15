@@ -1,0 +1,14 @@
+<div>
+    <form action="" class="sign_in_form form" [formGroup]="signInForm" >
+        <div class="heading">SIGN IN</div>
+        <div class="wrap_input">
+            <!-- <img src="../../../assets/img/user.png"> -->
+            <input type="text" placeholder="Tupe your email" id="" formControlName="email">
+        </div>
+        <div class="wrap_input">
+            <!-- <img src="../../../assets/img/unlock.png"> -->
+            <input type="password" placeholder="Tupe your assword" id="" formControlName="password">
+        </div>
+        <button  class="form_btn" (click)="onSubmitForm()">Отправить</button>
+    </form>
+</div>
