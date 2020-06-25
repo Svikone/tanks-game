@@ -3,6 +3,24 @@ body {
     padding: 0px;
     font-family: sans-serif;
 }
+.btn {
+    border: none;
+        background-color: white;
+        width: 200px;
+        margin: auto;
+        margin-top: 20px;
+        font-weight: bold;
+        padding: 10px;
+        border-radius: 20px;
+        cursor: pointer;
+        color: #9E9E9E;
+        transition:  1s ;
+        &:hover {
+            width: 100%;
+            transition:  1s;
+            color: black;
+        }
+}
 //---------form------------
 .form {
     display: flex;

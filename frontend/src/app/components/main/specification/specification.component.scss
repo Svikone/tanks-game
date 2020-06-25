@@ -1,0 +1,13 @@
+.wrapper {
+    text-align: center;
+    font-weight: bold;
+    color: orange;
+    .btn_start {
+        text-align: center;
+        border: 3px solid #8BC34A;
+        width: 100px;
+        &:hover {
+            width: 230px;
+        }
+    }
+}

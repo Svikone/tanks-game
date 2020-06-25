@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl,  } from '@angular/forms';
 import { HttpService } from '../../sevices/http.service';
 import { EApiUrls } from '../../core/enums/api-urls.enums';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-sign-in',
@@ -13,7 +14,8 @@ export class SignInComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private http: HttpService
+    private http: HttpService,
+    private router: Router,
   ) {
     this.signInForm = this.fb.group({
       email : [''],
@@ -34,6 +36,7 @@ export class SignInComponent implements OnInit {
     this.http.post(EApiUrls.AUTH_SIGNIN, user).subscribe((value: {token: string}) =>{
       localStorage.setItem('token', value.token);
       controls.reset()
+      this.router.navigate(['/main']);
     },
     error => {
       // error - объект ошибки
