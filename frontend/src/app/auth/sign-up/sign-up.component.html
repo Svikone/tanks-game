@@ -1,22 +1,58 @@
 <div>
-    <form action="" class="sign_up_form form" [formGroup]="signUpForm">
-        <div class="heading">SIGN UP</div>
-        <div class="wrap_input">
-            <img src="../../../assets/img/user.png">
-            <input type="text" placeholder="Name" id="" formControlName="name">
-        </div>
-        <div class="wrap_input">
-            <img src="../../../assets/img/email.png">
-            <input type="email" placeholder="Email" id="" formControlName="email">
-        </div>
-        <div class="wrap_input">
-            <img src="../../../assets/img/unlock.png">
-            <input type="password" placeholder="Password" id="" formControlName="password">
-        </div>
-        <div class="wrap_input">
-            <img src="../../../assets/img/unlock.png">
-            <input type="password" placeholder="Retype password" id="" formControlName="retype_password">
-        </div>
-        <button class="form_btn" (click)="onSubmitForm()">Отправить</button>
-    </form>
+  <form action="" class="sign_up_form form" [formGroup]="signUpForm">
+    <div class="heading">SIGN UP</div>
+    <div class="wrap_input">
+      <div *ngIf="_name.invalid && (_name.touched || _name.dirty)">
+        <span *ngIf="_name.errors?.required" class="error">*</span>
+      </div>
+      <input type="text" placeholder="Name" id="" formControlName="name" />
+    </div>
+    <div class="wrap_input">
+      <div *ngIf="_email.invalid && (_email.touched || _email.dirty)">
+        <span
+          *ngIf="_email.errors?.required || _email.errors?.email"
+          class="error"
+          >*</span
+        >
+      </div>
+      <input type="email" placeholder="Email" id="" formControlName="email" />
+    </div>
+    <div class="wrap_input">
+      <div
+        *ngIf="_password.invalid && (_password.touched || _password.dirty)"
+        class="error"
+      >
+        <span *ngIf="_password.errors?.required">*</span>
+      </div>
+      <input
+        type="password"
+        placeholder="Password"
+        id=""
+        formControlName="password"
+      />
+    </div>
+    <div class="wrap_input">
+      <div *ngIf="_retype_password.touched" class="error">
+        <span
+          *ngIf="
+            _retype_password.errors?.required || signUpForm.hasError('notSame')
+          "
+          >*</span
+        >
+      </div>
+      <input
+        type="password"
+        placeholder="Retype password"
+        id=""
+        formControlName="retype_password"
+      />
+    </div>
+    <button
+      class="form_btn"
+      [disabled]="!signUpForm.valid"
+      (click)="onSubmitForm()"
+    >
+      Отправить
+    </button>
+  </form>
 </div>
