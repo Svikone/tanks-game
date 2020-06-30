@@ -1,0 +1,13 @@
+<div class="wrapper">
+  <div
+    class="position"
+    *ngFor="let item of [].constructor(100); let i = index"
+    (click)="createTanks(i)"
+  >
+    <div class="tank" *ngIf="findTank(i)"></div>
+  </div>
+</div>
+<div class="loader" *ngIf="!show"></div>
+<div class="btn btn_start" *ngIf="show" (click)="sendTanks()">
+  START GAME
+</div>

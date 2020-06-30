@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, FormControl } from "@angular/forms";
 import { HttpService } from "../../sevices/http.service";
 import { EApiUrls } from "../../core/enums/api-urls.enums";
+import { Router, ActivatedRoute, ParamMap } from "@angular/router";
 import { Validators } from "@angular/forms";
 
 @Component({
@@ -12,7 +13,11 @@ import { Validators } from "@angular/forms";
 export class SignUpComponent implements OnInit {
   signUpForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private http: HttpService) {
+  constructor(
+    private fb: FormBuilder,
+    private http: HttpService,
+    private router: Router
+  ) {
     this.signUpForm = this.fb.group(
       {
         name: ["", [Validators.required]],
@@ -48,13 +53,13 @@ export class SignUpComponent implements OnInit {
   onSubmitForm() {
     const controls = this.signUpForm;
     var data = new FormData();
-    data.append("username", controls.value.name);
+    data.append("name", controls.value.name);
     data.append("email", controls.value.email);
     data.append("password", controls.value.password);
 
     this.http.post(EApiUrls.AUTH_SIGNUP, data).subscribe(
       (value: string) => {
-        console.log(value);
+        this.router.navigate(["auth/signin"]);
         controls.reset();
       },
       (error) => {

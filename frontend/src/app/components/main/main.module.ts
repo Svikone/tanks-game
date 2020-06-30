@@ -1,38 +1,39 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { GameComponent } from './game/game.component';
-import { Routes, RouterModule } from '@angular/router';
-import { MainComponent } from '../main/main.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { SpecificationComponent } from './specification/specification.component';
-
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { LobbyComponent } from "./lobby/lobby.component";
+import { Routes, RouterModule } from "@angular/router";
+import { MainComponent } from "../main/main.component";
+import { ReactiveFormsModule } from "@angular/forms";
+import { SpecificationComponent } from "./specification/specification.component";
+import { GameComponent } from "./game/game.component";
 
 const routes: Routes = [
   {
-    path:'',
+    path: "",
     component: MainComponent,
     children: [
       {
-        path: '',
-        component: SpecificationComponent
+        path: "",
+        component: SpecificationComponent,
       },
       {
-        path: 'game',
-        component: GameComponent
-      }
-    ]
+        path: "lobby",
+        component: LobbyComponent,
+      },
+      {
+        path: "game",
+        component: GameComponent,
+      },
+    ],
   },
 ];
 @NgModule({
   declarations: [
-    GameComponent, 
+    LobbyComponent,
     MainComponent,
-    SpecificationComponent
+    SpecificationComponent,
+    GameComponent,
   ],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    RouterModule.forChild(routes),
-  ]
+  imports: [CommonModule, ReactiveFormsModule, RouterModule.forChild(routes)],
 })
-export class MainModule { }
+export class MainModule {}

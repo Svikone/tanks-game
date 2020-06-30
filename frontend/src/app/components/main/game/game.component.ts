@@ -1,7 +1,8 @@
-import { Component, OnInit } from "@angular/core";
-import { HttpService } from "../../../sevices/http.service";
-import { EApiUrls } from "../../../core/enums/api-urls.enums";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { SocketService } from "../../../sevices/socket.service";
+// import { Subscription } from "rxjs";
+import { MessageService } from "../services/message.service";
+import { IStartGame } from "../../../core/interfaces/resStartGame.interfaces";
 
 @Component({
   selector: "app-game",
@@ -9,53 +10,25 @@ import { SocketService } from "../../../sevices/socket.service";
   styleUrls: ["./game.component.scss"],
 })
 export class GameComponent implements OnInit {
-  public game = {
-    name: "q",
-    tanks: {
-      position: [],
-      shot: [],
-    },
-  };
+  message: any;
+  subscription;
+  msgList = [];
 
-  constructor(private http: HttpService, private socket: SocketService) {}
+  constructor(
+    private socket: SocketService,
+    private messageService: MessageService
+  ) {}
 
-  ngOnInit() {}
-
-  createTanks(position) {
-    const coord = this.game.tanks.position;
-    const tanks = coord.findIndex((t) => t.coord === position);
-    if (tanks != -1) {
-      coord.splice(tanks, 1);
-    } else {
-      coord.push({ coord: position });
-    }
+  ngOnInit() {
+    this.subscription = this.messageService
+      .getMessage()
+      .subscribe((message) => {
+        this.msgList.push(message);
+      });
   }
 
-  findTank(index) {
-    return this.game.tanks.position.some((t) => t.coord === index);
-  }
-
-  sendTanks() {
-    this.socket.emit("startGame", this.game).subscribe(
-      (data) => {
-        console.log("Success", data);
-      },
-      (error) => {
-        console.log("Error", error);
-      },
-      () => {
-        console.log("complete");
-      }
-    );
-  }
-
-  test() {
-    // this.socket.on('startGame').subscribe((data) => {
-    //   console.log("Success", data);
-    // });
-
-    this.socket.on("my startGame", (data: string) => {
-      console.log(data);
-    });
+  ngOnDestroy() {
+    // unsubscribe to ensure no memory leaks
+    this.subscription.unsubscribe();
   }
 }
