@@ -61,9 +61,7 @@ export class LobbyComponent implements OnInit {
     this.socket.on("startGame").subscribe((data: IStartGame) => {
       console.log("Success", data);
       if (data) {
-        this.messageService.sendMessage(
-          "Message from Home Component to App Component!"
-        );
+        this.messageService.sendMessage(data);
         this.show = !this.show;
         this.router.navigate(["main/game"]);
       }

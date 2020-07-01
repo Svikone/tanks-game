@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { SocketService } from "../../../sevices/socket.service";
-// import { Subscription } from "rxjs";
+import { Subscription } from "rxjs";
 import { MessageService } from "../services/message.service";
 import { IStartGame } from "../../../core/interfaces/resStartGame.interfaces";
 
@@ -11,7 +11,7 @@ import { IStartGame } from "../../../core/interfaces/resStartGame.interfaces";
 })
 export class GameComponent implements OnInit {
   message: any;
-  subscription;
+  subscription: Subscription;
   msgList = [];
 
   constructor(
@@ -23,8 +23,13 @@ export class GameComponent implements OnInit {
     this.subscription = this.messageService
       .getMessage()
       .subscribe((message) => {
-        this.msgList.push(message);
+        if (message) {
+          this.message = message;
+        }
+        // this.msgList.push(message);
+        console.log(message);
       });
+    console.log(this.message);
   }
 
   ngOnDestroy() {
