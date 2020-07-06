@@ -8,7 +8,6 @@ module.exports = (io) => {
   io.on('connection', (socket) => {
     socket.on('startGame', async (req, res) => {
       try {
-        console.log(req.user);
         const game = arr.game.length;
         console.log(arr.game);
         if (req.tanks.position.length === 5) {
@@ -34,15 +33,12 @@ module.exports = (io) => {
       socket.emit('res', 'dataInServis');
     });
 
-    socket.on('Game', async (qwe) => {
-      const res = {
-        _id: '5edf9b5f78b8c81190b77eb6',
-        name: 'qwe',
-      };/// test
+    socket.on('Game', async (res) => {
+      console.log('res', res);
 
       try {
-        const game = await Games.findOne({ _id: res._id, 'game.name': res.name });
-        console.log(game);
+        const game = await Games.findOne({ _id: res.id, 'game.name': res.name });
+        console.log('qwe', game);
         if (game) {
           const player = game.game.find((p) => p.name === res.name);
           console.log(player);
