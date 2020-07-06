@@ -10,30 +10,57 @@ import { IStartGame } from "../../../core/interfaces/resStartGame.interfaces";
   styleUrls: ["./game.component.scss"],
 })
 export class GameComponent implements OnInit {
-  message: any;
-  subscription: Subscription;
-  msgList = [];
+  message;
+  // subscription: Subscription;
 
   constructor(
     private socket: SocketService,
     private messageService: MessageService
-  ) {}
-
-  ngOnInit() {
-    this.subscription = this.messageService
-      .getMessage()
-      .subscribe((message) => {
-        if (message) {
-          this.message = message;
-        }
-        // this.msgList.push(message);
-        console.log(message);
-      });
-    console.log(this.message);
+  ) {
+    this.message = {};
+    this.messageService.selectedCount$.subscribe((astronauts: IStartGame) => {
+      this.message = astronauts;
+    });
   }
 
-  ngOnDestroy() {
-    // unsubscribe to ensure no memory leaks
-    this.subscription.unsubscribe();
+  ngOnInit() {
+    this.message.token = localStorage.getItem("token");
+    console.log(this.message);
+    this.sendGame();
+    this.responseSocketGame();
+  }
+
+  sendGame() {
+    this.socket.emit("Game", this.message).subscribe(
+      (data) => {
+        console.log("Success", data);
+      },
+      (error) => {
+        console.log("Error", error);
+      },
+      () => {
+        console.log("complete");
+      }
+    );
+  }
+
+  responseSocketGame() {
+    this.socket.on("Game").subscribe((data) => {
+      console.log("Success", data);
+    });
+  }
+
+  shot(shot) {
+    this.socket.emit("Shot", (this.message.shot = shot)).subscribe(
+      (data) => {
+        console.log("Success", data);
+      },
+      (error) => {
+        console.log("Error", error);
+      },
+      () => {
+        console.log("complete");
+      }
+    );
   }
 }

@@ -19,7 +19,7 @@ export class HttpService {
 
   post<T>(url: string, body: any = {}) {
     this.httpOptions = this.reCoolHeader();
-    return this.http.post(this.fullUrl() + url, body).pipe(
+    return this.http.post(this.fullUrl() + url, body, this.httpOptions).pipe(
       // map((response) => {
       // if (response.status === 401) {
       //   this.redirect();

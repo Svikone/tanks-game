@@ -1,23 +1,20 @@
 import { Injectable } from "@angular/core";
-import { Observable, Subject } from "rxjs";
+import { Observable, Subject, BehaviorSubject } from "rxjs";
 import { IStartGame } from "../../../core/interfaces/resStartGame.interfaces";
 
 @Injectable({
   providedIn: "root",
 })
 export class MessageService {
-  private subject = new Subject<any>();
-
-  sendMessage(message: IStartGame) {
-    console.log(message);
-    this.subject.next({ text: message });
+  private activeTabIndex = new BehaviorSubject<any>(null);
+  public activeTabIndexs = new BehaviorSubject<any>(null);
+  activeTab$ = this.activeTabIndex.asObservable();
+  selectedCount$ = this.activeTabIndexs.asObservable();
+  constructor() {}
+  fnActiveTabIs(astronaut: IStartGame) {
+    this.activeTabIndex.next(astronaut);
   }
-
-  clearMessage() {
-    this.subject.next();
-  }
-
-  getMessage(): Observable<any> {
-    return this.subject.asObservable();
+  fnSelected(astronauts: IStartGame) {
+    this.activeTabIndexs.next(astronauts);
   }
 }

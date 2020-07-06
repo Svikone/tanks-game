@@ -6,7 +6,6 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { SocketService } from "./sevices/socket.service";
-import { MessageService } from "./components/main/services/message.service";
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,7 +16,7 @@ import { MessageService } from "./components/main/services/message.service";
     HttpClientModule,
     BrowserAnimationsModule,
   ],
-  providers: [SocketService, MessageService],
+  providers: [SocketService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

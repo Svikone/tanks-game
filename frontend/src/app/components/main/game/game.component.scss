@@ -1,0 +1,19 @@
+.wrapper {
+    display: flex;  
+    .field {
+      display: flex;
+      width: 623px;
+      flex-wrap: wrap;
+      .position {
+        border: 1px solid black;
+        width: 60px;
+        height: 60px;
+        cursor: pointer;
+        .tank {
+          background-color: green;
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+}

@@ -1,1 +1,19 @@
-<p>sdv</p>
+<div class="wrapper">
+  <div class="field">
+    <div
+      class="position"
+      *ngFor="let item of [].constructor(100); let i = index"
+    >
+      <div class="tank"></div>
+    </div>
+  </div>
+  <div class="field">
+    <div
+      class="position"
+      *ngFor="let item of [].constructor(100); let i = index"
+      (click)="shot(i)"
+    >
+      <div class="tank"></div>
+    </div>
+  </div>
+</div>

@@ -6,6 +6,7 @@ import { MainComponent } from "../main/main.component";
 import { ReactiveFormsModule } from "@angular/forms";
 import { SpecificationComponent } from "./specification/specification.component";
 import { GameComponent } from "./game/game.component";
+import { MessageService } from "./services/message.service";
 
 const routes: Routes = [
   {
@@ -27,6 +28,7 @@ const routes: Routes = [
     ],
   },
 ];
+
 @NgModule({
   declarations: [
     LobbyComponent,
@@ -35,5 +37,6 @@ const routes: Routes = [
     GameComponent,
   ],
   imports: [CommonModule, ReactiveFormsModule, RouterModule.forChild(routes)],
+  providers: [MessageService],
 })
 export class MainModule {}
